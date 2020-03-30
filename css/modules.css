@@ -1,0 +1,8 @@
+#showImage div{
+    display: inline-block;
+    padding-left: 2%;
+    margin: 2px;
+    border: 1px solid black;
+    width: 30%;
+    float: left;
+}
