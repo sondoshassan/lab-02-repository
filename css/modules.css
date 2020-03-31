@@ -1,8 +1,7 @@
 #showImage div{
-    display: inline-block;
     padding-left: 2%;
-    margin: 2px;
+    margin: 0.5%;
     border: 1px solid black;
     width: 30%;
-    float: left;
+    height: 352px;
 }
