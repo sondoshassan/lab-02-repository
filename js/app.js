@@ -100,7 +100,7 @@ Product.prototype.event1 = function () {
 
     }
     );
-    if (choose === 'Filter By Keyword') {
+    if (choose === 'Filter By Keywords') {
       productArr.forEach(val =>{
         let renderedObj = val.render()
         $('#showImage').append(renderedObj);
