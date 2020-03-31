@@ -1,3 +1,9 @@
 #showImage div{
     background-color: blanchedalmond;
 }
+
+select {
+    background-color: blanchedalmond;
+    font-weight: bold;
+
+}

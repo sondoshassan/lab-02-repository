@@ -6,6 +6,27 @@ h1 {
     font-size: 2.5em;
     font-family: 'Roboto', sans-serif;
 }
+img {
+    height: 231px;
+    width: 82%;
+    padding-bottom: 11px;
+    display: flex;
+    justify-content: space-around;
+}
+#page {
+    margin: -2% 0 2% 48%;
+}
+    button {
+        padding: 6px;
+        margin-left: 15px;
+        cursor: pointer;
+        border: 1px solid gray;
+        border-radius: 6px;
+        box-shadow: 1px 1px 9px grey;
+    }
+    button:hover {
+        transform: scale(1.1);
+    }
 select {
     text-align: center;
     margin: 6% 0 4% 44%;
@@ -19,7 +40,12 @@ h2 {
     margin-bottom: 5px;
     text-align: center;
     font-family: 'Roboto', sans-serif;
+    display: flex;
+    justify-content: space-around;
 
+}
+select#sort {
+    margin: 1%;
 }
 li {
     list-style: none;
@@ -27,15 +53,19 @@ li {
 #showImage {
     width: 75%;
     margin: auto;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 p {
     
-    width: 311px;
+    width: 78%;
     font-weight: bold;
     padding-top: 2px;
     text-align: center;
     height: 55px;
     font-family: 'Roboto', sans-serif;
+    display: flex;
+    justify-content: space-around;
 
 }
