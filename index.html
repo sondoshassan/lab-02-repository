@@ -13,8 +13,9 @@
     <script id='helpRender' type='text/x-tmpl-mustache'>
         <div>
           <h2>{{title}}</h2>
-          <img src="{{{image_url}}}" />
-          <!-- src = "{{image_url}}" -->
+          <!-- <img src="{{{image_url}}}" /> -->
+          <img src = "{{filePath}}" />
+          
           <p>{{description}}</p>
         </div>
       </script>
@@ -29,6 +30,10 @@
         <select id="filter">
             <option>Filter By Keyword</option>
         </select>
+        <div id="page">
+            <button id="pageOne">page one</button>
+            <button id="pageTwo">page two</button>
+        </div>
         <select name="store" id="sort">
             <option value="sort">Sort By</option>
             <option value="text">title</option>
@@ -36,6 +41,7 @@
         </select>
         <div id="showImage">
         </div>
+        <div id="showImage2"></div>
     </main>
 
     <script src="https://unpkg.com/mustache@latest"></script>
