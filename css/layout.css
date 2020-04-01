@@ -69,3 +69,12 @@ p {
     justify-content: space-around;
 
 }
+.bigger {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    margin: auto;
+    margin-top: 20px;
+    width: 66%;
+}

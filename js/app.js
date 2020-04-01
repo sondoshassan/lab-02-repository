@@ -30,7 +30,7 @@ function renderPageTwo() {
     dataType: 'json',
     success: (data => {
       let product;
-      data.forEach(value => {
+      data.forEach((value,i) => {
         product = new Product(value.image_url, value.title, value.keyword, value.description, value.horns);
         let renderedObj = product.render();
         $('#showImage').append(renderedObj);
@@ -139,4 +139,31 @@ Product.prototype.event2 = function () {
     }
   });
 }
+let count = 0;
 
+
+$('#showImage').on('click',(event) =>{
+  let clickEle = event.target.src;
+  let newClick = productArr.filter(n => n.filePath === clickEle);
+  console.log(newClick);
+  $('#showImage').empty('');
+  let renderedObj = newClick[0].render();
+  $('#showImage').addClass('bigger');
+  $('#showImage').append(renderedObj);
+  $('#showImage').removeAttr('id');
+  count ++;
+  console.log(count);
+  if (count === 2){
+    count = 0;
+    $('.bigger').attr('id','showImage');
+    $('#showImage').empty('');
+    console.log(productArr);
+    productArr.forEach(value => {
+      let renderedObj = value.render();
+      $('#showImage').append(renderedObj);
+    });
+    $('#showImage').removeClass('bigger');
+
+  }
+
+})
