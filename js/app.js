@@ -88,19 +88,22 @@ Product.prototype.renderOption = function (i) {
   $('#filter').append(option);
 }
 
-
+let filterArray = [];
 Product.prototype.event1 = function () {
   $('#filter').change(function () {
     let choose = $('#filter').val();
     let select2 = productArr.filter((n) => n.keyWords === choose);
     $('#showImage').empty('');
+    filterArray = select2;
     select2.forEach(value => {
-      let renderedObj = value.render()
+      let renderedObj = value.render();
+
       $('#showImage').append(renderedObj);
 
     }
     );
     if (choose === 'Filter By Keywords') {
+      filterArray = [];
       productArr.forEach(val =>{
         let renderedObj = val.render()
         $('#showImage').append(renderedObj);
@@ -110,34 +113,14 @@ Product.prototype.event1 = function () {
 }
 Product.prototype.event2 = function () {
   $('#sort').change(function () {
-    let choose = $('#sort').val();
-    if (choose === 'text') {
-      productArr.sort((a, b) => {
-        if (a.title < b.title){
-          return -1;
-        }
-        else {
-          return 1;
-        }
-      });
+    if (filterArray.length !== 0){
+      forFilter(filterArray);
 
-      $('#showImage div').hide();
-      productArr.forEach(val => {
-        let renderedObj = val.render()
-        $('#showImage').append(renderedObj);
-      });
     }
-    else if (choose === 'num') {
-      productArr.sort((a, b) => {
-        return a.horns - b.horns;
-      });
-      $('#showImage div').hide();
-      productArr.forEach(val => {
-        let renderedObj = val.render()
-        $('#showImage').append(renderedObj);
-      });
-    }
-  });
+    else {
+      forFilter(productArr);
+
+    }});
 }
 let count = 0;
 
@@ -145,19 +128,16 @@ let count = 0;
 $('#showImage').on('click',(event) =>{
   let clickEle = event.target.src;
   let newClick = productArr.filter(n => n.filePath === clickEle);
-  console.log(newClick);
   $('#showImage').empty('');
   let renderedObj = newClick[0].render();
   $('#showImage').addClass('bigger');
   $('#showImage').append(renderedObj);
   $('#showImage').removeAttr('id');
   count ++;
-  console.log(count);
   if (count === 2){
     count = 0;
     $('.bigger').attr('id','showImage');
     $('#showImage').empty('');
-    console.log(productArr);
     productArr.forEach(value => {
       let renderedObj = value.render();
       $('#showImage').append(renderedObj);
@@ -167,3 +147,34 @@ $('#showImage').on('click',(event) =>{
   }
 
 })
+function forFilter(array) {
+  let choose = $('#sort').val();
+  if (choose === 'text') {
+    array.sort((a, b) => {
+      if (a.title < b.title) {
+        return -1;
+      }
+      else {
+        return 1;
+      }
+    });
+    $('#showImage div').hide();
+
+    array.forEach(val => {
+      let renderedObj = val.render();
+      $('#showImage').append(renderedObj);
+    });
+  }
+  else if (choose === 'num') {
+    array.sort((a, b) => {
+      return a.horns - b.horns;
+    });
+    $('#showImage div').hide();
+    array.forEach(val => {
+      let renderedObj = val.render();
+      $('#showImage').append(renderedObj);
+    });
+  }
+  
+}
+
