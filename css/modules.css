@@ -5,3 +5,7 @@
     width: 304px;
     height: 352px;
 }
+#options select {
+    padding: 2%;
+    border-radius: 3px;
+}

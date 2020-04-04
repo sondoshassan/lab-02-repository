@@ -5,58 +5,34 @@ let productArr = [];
 
 
 $(function () {
-  renderFirstTime();
+  renderFirstTime('./data/page-1.json');
   $('#page').on('click',function(event){
     let userClick = event.target.id;
     if(userClick === 'pageOne'){
-      renderFirstTime();
+      renderFirstTime('./data/page-1.json');
     }
     else if(userClick === 'pageTwo'){
-      renderPageTwo();
+      renderFirstTime('./data/page-2.json');
     }
   })
 });
 
 
 
-function renderPageTwo() {
+function renderFirstTime(urlPath) {
   productArr = [];
   keywordArr = [];
   $('#filter').empty('');
   $('#showImage').empty('');
   $('#filter').append('<option>Filter By Keywords</option>');
   $.ajax({
-    url: './data/page-2.json',
-    dataType: 'json',
-    success: (data => {
-      let product;
-      data.forEach((value,i) => {
-        product = new Product(value.image_url, value.title, value.keyword, value.description, value.horns);
-        let renderedObj = product.render();
-        $('#showImage').append(renderedObj);
-      });
-      keywordArr.forEach(value => { product.renderOption(value); });
-      product.event1();
-      product.event2();
-    }),
-  });
-}
-
-function renderFirstTime() {
-  productArr = [];
-  keywordArr = [];
-  $('#filter').empty('');
-  $('#showImage').empty('');
-  $('#filter').append('<option>Filter By Keywords</option>');
-  $.ajax({
-    url: './data/page-1.json',
+    url: urlPath,
     dataType: 'json',
     success: (data => {
       let product;
       data.forEach(value => {
-        product = new Product(value.image_url, value.title, value.keyword, value.description, value.horns);
-        let renderedObj = product.render();
-        $('#showImage').append(renderedObj);
+        product = new Product(value);
+        product.render();
       });
       keywordArr.forEach(value => { product.renderOption(value); });
       product.event1();
@@ -65,12 +41,13 @@ function renderFirstTime() {
   });
 }
 
-function Product(filePath, title, keyWords, description, horns) {
-  this.filePath = filePath;
-  this.title = title;
-  this.keyWords = keyWords;
-  this.description = description;
-  this.horns = horns;
+
+function Product(val) {
+  this.filePath = val.image_url;
+  this.title = val.title;
+  this.description = val.description;
+  this.keyWords = val.keyword;
+  this.horns = val.horns;
   productArr.push(this);
   if (keywordArr.includes(this.keyWords) === false) {
     keywordArr.push(this.keyWords);
@@ -80,7 +57,7 @@ function Product(filePath, title, keyWords, description, horns) {
 Product.prototype.render = function () {
   let template = $('#helpRender').html();
   let myHtml = Mustache.render(template,this);
-  return myHtml;
+  $('#showImage').append(myHtml);
 }
 
 Product.prototype.renderOption = function (i) {
@@ -96,17 +73,13 @@ Product.prototype.event1 = function () {
     $('#showImage').empty('');
     filterArray = select2;
     select2.forEach(value => {
-      let renderedObj = value.render();
-
-      $('#showImage').append(renderedObj);
-
+      value.render();
     }
     );
     if (choose === 'Filter By Keywords') {
       filterArray = [];
       productArr.forEach(val =>{
-        let renderedObj = val.render()
-        $('#showImage').append(renderedObj);
+        val.render()
       } )
     }
   });
@@ -129,9 +102,8 @@ $('#showImage').on('click',(event) =>{
   let clickEle = event.target.src;
   let newClick = productArr.filter(n => n.filePath === clickEle);
   $('#showImage').empty('');
-  let renderedObj = newClick[0].render();
+  newClick[0].render();
   $('#showImage').addClass('bigger');
-  $('#showImage').append(renderedObj);
   $('#showImage').removeAttr('id');
   count ++;
   if (count === 2){
@@ -139,8 +111,7 @@ $('#showImage').on('click',(event) =>{
     $('.bigger').attr('id','showImage');
     $('#showImage').empty('');
     productArr.forEach(value => {
-      let renderedObj = value.render();
-      $('#showImage').append(renderedObj);
+      value.render();
     });
     $('#showImage').removeClass('bigger');
 
@@ -161,8 +132,7 @@ function forFilter(array) {
     $('#showImage div').hide();
 
     array.forEach(val => {
-      let renderedObj = val.render();
-      $('#showImage').append(renderedObj);
+      val.render();
     });
   }
   else if (choose === 'num') {
@@ -171,10 +141,8 @@ function forFilter(array) {
     });
     $('#showImage div').hide();
     array.forEach(val => {
-      let renderedObj = val.render();
-      $('#showImage').append(renderedObj);
+      val.render();
     });
   }
-  
 }
 
