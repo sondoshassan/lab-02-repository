@@ -1,7 +1,16 @@
 #showImage div{
-    padding-left: 2%;
-    margin: 0.5%;
+    /* padding-left: 2%; */
+    /* margin: 0.5%; */
     border: 1px solid black;
     width: 304px;
     height: 352px;
+    margin-bottom: 2%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#options select {
+    padding: 2%;
+    border-radius: 3px;
 }
